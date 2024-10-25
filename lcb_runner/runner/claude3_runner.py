@@ -10,9 +10,20 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class Claude3Runner(BaseRunner):
+    """
+    Runner class for Claude 3 API interactions.
+    Handles message creation and response processing for Claude 3 models.
+    """
     client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
 
     def __init__(self, args, model):
+        """
+        Initialize the Claude 3 runner with specified arguments and model.
+
+        Args:
+            args: Configuration arguments containing model parameters
+            model: The specific Claude 3 model to use
+        """
         super().__init__(args, model)
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
@@ -22,6 +33,18 @@ class Claude3Runner(BaseRunner):
         }
 
     def _run_single(self, prompt: tuple[str, str]) -> list[str]:
+        """
+        Execute a single run of the model with the given prompt.
+
+        Args:
+            prompt (tuple[str, str]): A tuple containing (system_prompt, messages)
+
+        Returns:
+            list[str]: List of generated outputs
+
+        Raises:
+            Exception: If the model execution fails after all retries
+        """
 
         def __run_single(counter):
             try:
