@@ -1,3 +1,5 @@
+"""Base runner module for executing language model tasks."""
+
 import os
 import json
 from abc import ABC, abstractmethod
@@ -11,7 +13,15 @@ from lcb_runner.runner.scenario_router import Scenario
 
 
 class BaseRunner(ABC):
+    """Abstract base class for runners that execute language model tasks."""
+
     def __init__(self, args, model: LanguageModel):
+        """Initialize the BaseRunner.
+
+        Args:
+            args: Command line arguments.
+            model (LanguageModel): The language model to use.
+        """
         self.args = args
         self.model = model
         self.client_kwargs: dict[str | str] = {}
