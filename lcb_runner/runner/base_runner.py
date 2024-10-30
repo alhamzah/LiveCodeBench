@@ -11,7 +11,21 @@ from lcb_runner.runner.scenario_router import Scenario
 
 
 class BaseRunner(ABC):
+    """
+    Abstract base class for running language models on benchmarks.
+
+    This class provides a framework for running language models on various scenarios,
+    including caching mechanisms and parallel processing capabilities.
+    """
+
     def __init__(self, args, model: LanguageModel):
+        """
+        Initialize the BaseRunner.
+
+        Args:
+            args: Command-line arguments or configuration settings.
+            model (LanguageModel): The language model to be used for generation.
+        """
         self.args = args
         self.model = model
         self.client_kwargs: dict[str | str] = {}
@@ -28,20 +42,39 @@ class BaseRunner(ABC):
             self.cache = None
 
     def save_cache(self):
+        """Save the current cache to a file if caching is enabled."""
         if self.args.use_cache:
             with open(self.cache_path, "w") as f:
                 json.dump(self.cache, f, indent=4)
 
     # @abstractmethod
     def _run_single(self, prompt: str | list[dict[str, str]]) -> list[str]:
+        """
+        Run the model for a single prompt.
+
+        This method should be implemented by subclasses.
+
+        Args:
+            prompt (str | list[dict[str, str]]): The input prompt for the model.
+
+        Returns:
+            list[str]: The model's output for the given prompt.
+        """
         pass
 
     @staticmethod
     def run_single(combined_args) -> list[str]:
         """
-        Run the model for a single prompt and return the output
-        Static method to be used in multiprocessing
-        Calls the _run_single method with the combined arguments
+        Run the model for a single prompt and return the output.
+
+        This static method is used for multiprocessing. It calls the _run_single method
+        with the combined arguments.
+
+        Args:
+            combined_args: A tuple containing (prompt, cache, args, call_method).
+
+        Returns:
+            list[str]: The model's output for the given prompt.
         """
         prompt: str | list[dict[str, str]]
         cache: dict[str, str]
@@ -60,6 +93,17 @@ class BaseRunner(ABC):
         return result
 
     def run_batch(self, prompts: list[str | list[dict[str, str]]]) -> list[list[str]]:
+        """
+        Run the model on a batch of prompts.
+
+        This method supports both single-process and multi-process execution.
+
+        Args:
+            prompts (list[str | list[dict[str, str]]]): A list of prompts to process.
+
+        Returns:
+            list[list[str]]: A list of model outputs for each prompt.
+        """
         outputs = []
         arguments = [
             (
@@ -99,6 +143,17 @@ class BaseRunner(ABC):
     def prompts_to_outputs(
         self, prompts: list[str | list[dict[str, str]]]
     ) -> list[list[str]]:
+        """
+        Process a list of prompts and return their corresponding outputs.
+
+        This method handles caching and batch processing of prompts.
+
+        Args:
+            prompts (list[str | list[dict[str, str]]]): A list of prompts to process.
+
+        Returns:
+            list[list[str]]: A list of model outputs for each prompt.
+        """
         if self.args.use_cache:
             outputs = []
             batch_size = self.args.cache_batch_size
@@ -112,6 +167,19 @@ class BaseRunner(ABC):
         return outputs
 
     def run_main_repair(self, benchmark: list, format_prompt: callable) -> list[list[str]]:
+        """
+        Run the main repair scenario on the given benchmark.
+
+        This method is specific to the self-repair scenario and processes the benchmark
+        using previously generated code and metadata.
+
+        Args:
+            benchmark (list): A list of benchmark problems.
+            format_prompt (callable): A function to format the prompt for each problem.
+
+        Returns:
+            list[list[str]]: A list of model outputs for each problem and code variant.
+        """
         assert self.args.n == 1
         with open(
             f"output/{self.model.model_repr}/{Scenario.codegeneration}_{self.args.codegen_n}_{self.args.temperature}_eval_all.json"
@@ -162,6 +230,18 @@ class BaseRunner(ABC):
         return outputs
 
     def run_main(self, benchmark: list, format_prompt: callable) -> list[list[str]]:
+        """
+        Run the main scenario on the given benchmark.
+
+        This method handles different scenarios, including self-repair and standard prompts.
+
+        Args:
+            benchmark (list): A list of benchmark problems.
+            format_prompt (callable): A function to format the prompt for each problem.
+
+        Returns:
+            list[list[str]]: A list of model outputs for each problem.
+        """
         if self.args.scenario == Scenario.selfrepair:
             return self.run_main_repair(benchmark, format_prompt)
 
