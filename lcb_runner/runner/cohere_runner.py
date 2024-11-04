@@ -10,9 +10,19 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class CohereRunner(BaseRunner):
+    """
+    A runner class for the Cohere API, extending the BaseRunner.
+    """
     client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
     def __init__(self, args, model):
+        """
+        Initialize the CohereRunner with given arguments and model.
+
+        Args:
+            args: Command-line arguments.
+            model: The language model to use.
+        """
         super().__init__(args, model)
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
@@ -22,9 +32,30 @@ class CohereRunner(BaseRunner):
         }
 
     def _run_single(self, prompt: tuple[dict[str,str], str]) -> list[str]:
+        """
+        Run a single prompt through the Cohere API.
+
+        Args:
+            prompt (tuple): A tuple containing chat history and the current message.
+
+        Returns:
+            list[str]: A list of generated responses.
+        """
         chat_history, message = prompt
 
         def __run_single(counter):
+            """
+            Helper function to run a single API call with retry logic.
+
+            Args:
+                counter (int): Number of retries left.
+
+            Returns:
+                str: The generated content.
+
+            Raises:
+                Exception: If all retries are exhausted.
+            """
             try:
                 response = self.client.chat(
                     message=message,

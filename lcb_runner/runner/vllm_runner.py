@@ -9,7 +9,17 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class VLLMRunner(BaseRunner):
+    """
+    A runner class for VLLM (Very Large Language Model), extending the BaseRunner.
+    """
     def __init__(self, args, model):
+        """
+        Initialize the VLLMRunner with given arguments and model.
+
+        Args:
+            args: Command-line arguments.
+            model: The language model to use.
+        """
         super().__init__(args, model)
         model_tokenizer_path = (
             model.model_name if args.local_model_path is None else args.local_model_path
@@ -36,9 +46,27 @@ class VLLMRunner(BaseRunner):
         )
 
     def _run_single(self, prompt: str) -> list[str]:
+        """
+        Placeholder method for running a single prompt (not implemented for VLLM).
+
+        Args:
+            prompt (str): The input prompt.
+
+        Returns:
+            list[str]: A list of generated responses (empty in this case).
+        """
         pass
 
     def run_batch(self, prompts: list[str]) -> list[list[str]]:
+        """
+        Run a batch of prompts through the VLLM model.
+
+        Args:
+            prompts (list[str]): A list of input prompts.
+
+        Returns:
+            list[list[str]]: A list of lists containing generated responses for each prompt.
+        """
         outputs = [None for _ in prompts]
         remaining_prompts = []
         remaining_indices = []
