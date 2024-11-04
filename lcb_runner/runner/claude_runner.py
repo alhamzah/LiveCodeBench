@@ -13,6 +13,13 @@ class ClaudeRunner(BaseRunner):
     client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
 
     def __init__(self, args, model):
+        """
+        Initialize the ClaudeRunner.
+
+        Args:
+            args: Command-line arguments.
+            model: The language model to use.
+        """
         super().__init__(args, model)
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
@@ -22,8 +29,29 @@ class ClaudeRunner(BaseRunner):
         }
 
     def _run_single(self, prompt: str) -> list[str]:
+        """
+        Run the Claude model for a single prompt.
+
+        Args:
+            prompt (str): The input prompt.
+
+        Returns:
+            list[str]: A list of generated outputs.
+        """
 
         def __run_single(counter):
+            """
+            Helper function to run a single prompt with retry logic.
+
+            Args:
+                counter (int): Number of retries left.
+
+            Returns:
+                str: The generated content.
+
+            Raises:
+                Exception: If all retries fail.
+            """
             try:
                 response = self.client.completions.create(
                     prompt=prompt,
