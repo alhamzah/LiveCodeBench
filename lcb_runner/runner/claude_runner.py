@@ -10,9 +10,17 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class ClaudeRunner(BaseRunner):
+    """Runner for Claude models using the Anthropic API."""
+
     client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
 
     def __init__(self, args, model):
+        """Initialize the ClaudeRunner.
+
+        Args:
+            args: Command line arguments.
+            model: Language model configuration.
+        """
         super().__init__(args, model)
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
@@ -22,6 +30,14 @@ class ClaudeRunner(BaseRunner):
         }
 
     def _run_single(self, prompt: str) -> list[str]:
+        """Run a single prompt through the Claude model.
+
+        Args:
+            prompt: The input prompt.
+
+        Returns:
+            A list of generated responses.
+        """
 
         def __run_single(counter):
             try:
