@@ -10,18 +10,34 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class CohereRunner(BaseRunner):
+    """Runner for Cohere API."""
+
     client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
     def __init__(self, args, model):
+        """Initialize the CohereRunner.
+
+        Args:
+            args: Command-line arguments.
+            model: Language model configuration.
+        """
         super().__init__(args, model)
-        self.client_kwargs: dict[str | str] = {
+        self.client_kwargs: dict[str, str] = {
             "model": args.model,
             "temperature": args.temperature,
             "max_tokens": args.max_tokens,
             "p": args.top_p,
         }
 
-    def _run_single(self, prompt: tuple[dict[str,str], str]) -> list[str]:
+    def _run_single(self, prompt: tuple[dict[str, str], str]) -> list[str]:
+        """Run a single prompt through the Cohere API.
+
+        Args:
+            prompt: A tuple containing chat history and the current message.
+
+        Returns:
+            A list of generated responses.
+        """
         chat_history, message = prompt
 
         def __run_single(counter):
