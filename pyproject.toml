@@ -1,33 +1,67 @@
-[tool.poetry]
-name = "livecodebench"
-version = "0.1.0"
-description = "Official Repository for Evaluation of LiveCodeBench"
-authors = ["Naman Jain <naman1205jain@gmail.com>"]
-readme = "README.md"
-
-[[tool.poetry.source]]
-name = 'pypi_'  # needed until python-poetry/poetry#3456 is resolved.
-url = 'https://pypi.org/simple'
-priority = 'primary'
-
-[tool.poetry.dependencies]
-python = ">=3.10 <4"
-pebble = "^5.0.7"
-datasets = "^2.18.0"
-google-generativeai = "^0.5.0"
-anthropic = "^0.25.1"
-openai = "^1.17.1"
-mistralai = "^0.1.8"
-pyext = "0.7"
-annotated-types = "^0.7.0"
-cohere = "^5.5.4"
-
-[tool.poetry.group.with-gpu]
-optional = true
-
-[tool.poetry.group.with-gpu.dependencies]
-vllm = "^0.4.0.post1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"name = "livecodebench"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"version = "0.1.0"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"description = "Official Repository for Evaluation of LiveCodeBench"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"authors = ["Naman Jain <naman1205jain@gmail.com>"][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"readme = "README.md"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[[tool.poetry.source]][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"name = 'pypi_'  # needed until python-poetry/poetry#3456 is resolved.[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"url = 'https://pypi.org/simple'[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"priority = 'primary'[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.poetry.dependencies][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"python = ">=3.10 <4"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"pebble = "^5.0.7"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"datasets = "^2.18.0"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"google-generativeai = "^0.5.0"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"anthropic = "^0.25.1"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"openai = "^1.17.1"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"mistralai = "^0.1.8"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"pyext = "0.7"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"annotated-types = "^0.7.0"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"cohere = "^5.5.4"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.poetry.group.with-gpu][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"optional = true[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.poetry.group.with-gpu.dependencies][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"vllm = "^0.4.0.post1"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"[build-system][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"requires = ["poetry-core"][tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"build-backend = "poetry.core.masonry.api"[tool.pytest]
+testpaths = ["tests"]
+python_files = "test_*.py"
