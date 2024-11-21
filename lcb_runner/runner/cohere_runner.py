@@ -10,6 +10,12 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class CohereRunner(BaseRunner):
+    """
+    A runner class for the Cohere AI model.
+    
+    This class manages the interaction with the Cohere API to run chat completions.
+    It includes error handling and retry logic.
+    """
     client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
     def __init__(self, args, model):
