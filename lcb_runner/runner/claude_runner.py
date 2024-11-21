@@ -10,6 +10,12 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class ClaudeRunner(BaseRunner):
+    """
+    A runner class for the Claude AI model from Anthropic.
+    
+    This class handles the interaction with the Anthropic API to run completions
+    using the Claude model. It includes error handling and retry logic.
+    """
     client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
 
     def __init__(self, args, model):
