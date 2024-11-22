@@ -10,10 +10,8 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class CohereRunner(BaseRunner):
-    client = cohere.Client(os.getenv("COHERE_API_KEY"))
-
-    def __init__(self, args, model):
-        super().__init__(args, model)
+    def __init__(self, client=None):
+        self.client = client or cohere.Client(os.getenv("COHERE_API_KEY"))
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
             "temperature": args.temperature,
