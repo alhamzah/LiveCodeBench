@@ -5,7 +5,7 @@ import argparse
 from lcb_runner.utils.scenarios import Scenario
 
 
-def get_args():
+def get_args(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model",
