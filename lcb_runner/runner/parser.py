@@ -5,7 +5,7 @@ import argparse
 from lcb_runner.utils.scenarios import Scenario
 
 
-def get_args():
+def get_args(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model",
@@ -119,7 +119,7 @@ def get_args():
     )
     parser.add_argument("--dtype", type=str, default="bfloat16", help="Dtype for vllm")
 
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     args.stop = args.stop.split(",")
 
@@ -132,10 +132,10 @@ def get_args():
     return args
 
 
-def test():
-    args = get_args()
-    print(args)
+def parse_args(args=None):
+    return get_args(args)
 
 
 if __name__ == "__main__":
-    test()
+    args = parse_args()
+    print(args)
