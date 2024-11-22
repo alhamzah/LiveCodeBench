@@ -10,10 +10,9 @@ from lcb_runner.runner.base_runner import BaseRunner
 
 
 class ClaudeRunner(BaseRunner):
-    client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
-
     def __init__(self, args, model):
         super().__init__(args, model)
+        self.client = Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
         self.client_kwargs: dict[str | str] = {
             "model": args.model,
             "temperature": args.temperature,
