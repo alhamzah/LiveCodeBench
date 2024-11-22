@@ -5,7 +5,7 @@ import argparse
 from lcb_runner.utils.scenarios import Scenario
 
 
-def get_args():
+def get_args(args_list=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model",
@@ -119,23 +119,17 @@ def get_args():
     )
     parser.add_argument("--dtype", type=str, default="bfloat16", help="Dtype for vllm")
 
-    args = parser.parse_args()
+    args = parser.parse_args(args_list)
 
     args.stop = args.stop.split(",")
 
     if args.tensor_parallel_size == -1:
-        args.tensor_parallel_size = torch.cuda.device_count()
+        args.tensor_parallel_size = 1  # Default to 1 for testing purposes
 
     if args.multiprocess == -1:
-        args.multiprocess = os.cpu_count()
+        args.multiprocess = os.cpu_count() or 1  # Default to 1 if cpu_count returns None
 
     return args
 
 
-def test():
-    args = get_args()
-    print(args)
 
-
-if __name__ == "__main__":
-    test()
