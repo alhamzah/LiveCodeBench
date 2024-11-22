@@ -2,8 +2,9 @@
 name = "livecodebench"
 version = "0.1.0"
 description = "Official Repository for Evaluation of LiveCodeBench"
-authors = ["Naman Jain <naman1205jain@gmail.com>"]
+authors = ["Naman Jain &lt;naman1205jain@gmail.com&gt;"]
 readme = "README.md"
+packages = ["lcb_runner", "tests"]
 
 [[tool.poetry.source]]
 name = 'pypi_'  # needed until python-poetry/poetry#3456 is resolved.
@@ -11,7 +12,7 @@ url = 'https://pypi.org/simple'
 priority = 'primary'
 
 [tool.poetry.dependencies]
-python = ">=3.10 <4"
+python = "&gt;=3.10 &lt;4"
 pebble = "^5.0.7"
 datasets = "^2.18.0"
 google-generativeai = "^0.5.0"
@@ -31,3 +32,6 @@ vllm = "^0.4.0.post1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest]
+testpaths = ["tests"]
