@@ -2,7 +2,7 @@
 name = "livecodebench"
 version = "0.1.0"
 description = "Official Repository for Evaluation of LiveCodeBench"
-authors = ["Naman Jain <naman1205jain@gmail.com>"]
+authors = ["Naman Jain &lt;naman1205jain@gmail.com&gt;"]
 readme = "README.md"
 
 [[tool.poetry.source]]
@@ -11,7 +11,11 @@ url = 'https://pypi.org/simple'
 priority = 'primary'
 
 [tool.poetry.dependencies]
-python = ">=3.10 <4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-mock = "^3.0.0"
+python = "&gt;=3.10 &lt;4"
 pebble = "^5.0.7"
 datasets = "^2.18.0"
 google-generativeai = "^0.5.0"
